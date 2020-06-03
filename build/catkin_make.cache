@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/john/robot_sanitization/devel -DCMAKE_INSTALL_PREFIX=/home/john/robot_sanitization/install -G Unix Makefiles

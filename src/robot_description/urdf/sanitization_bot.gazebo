@@ -1,18 +1,20 @@
 <?xml version="1.0"?>
   <robot name="sanitization_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <gazebo reference="chassis">
-      <material>Gazebo/Orange</material>
-    </gazebo>
-
-    <gazebo reference="caster_wheel">
-      <mu1>0.0</mu1>
-      <mu2>0.0</mu2>
-      <material>Gazebo/Red</material>
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/</robotNamespace>
+      </plugin>
     </gazebo>
 
     <gazebo>
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>/mybot</robotNamespace>
+      <plugin name = "omni_steering" filename = "libgazebo_ros_planar_move.so">
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>50.0</odometryRate>
+        <robotBaseFrame>base_link</robotBaseFrame>
+        <publishTF>true</publishTF>
       </plugin>
     </gazebo>
+
   </robot>

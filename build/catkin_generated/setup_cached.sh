@@ -7,4 +7,10 @@
 # new environment variables
 
 # modified environment variables
+export CMAKE_PREFIX_PATH="/home/john/robot_sanitization/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/john/robot_sanitization/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/john/robot_sanitization/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/john/robot_sanitization/build"
+export PYTHONPATH="/home/john/robot_sanitization/devel/lib/python2.7/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES="/home/john/robot_sanitization/devel/share/common-lisp"
+export ROS_PACKAGE_PATH="/home/john/robot_sanitization/src:$ROS_PACKAGE_PATH"

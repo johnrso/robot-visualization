@@ -1,0 +1,10 @@
+<launch>
+  <arg name="model" default="$(find robot_description)/urdf/robot.xacro"/>
+  <arg name="rvizconfig" default="$(find robot_description)/urdf/urdf.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+  <include file="$(find robot_control)/launch/robot_control.launch" />
+</launch>

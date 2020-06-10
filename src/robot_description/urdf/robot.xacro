@@ -7,25 +7,27 @@
     <xacro:property name="PI" value="3.1415926535897931"/>
 
   	<xacro:property name="chassisHeight" value="0.1"/>
-  	<xacro:property name="chassisLength" value="0.4"/>
-  	<xacro:property name="chassisWidth" value="0.2"/>
+  	<xacro:property name="chassisLength" value="1.2"/>
+  	<xacro:property name="chassisWidth" value="0.8"/>
   	<xacro:property name="chassisMass" value="50"/>
 
-  	<xacro:property name="casterRadius" value="0.05"/>
-  	<xacro:property name="casterMass" value="5"/>
+    <xacro:property name="towerHeight" value="1"/>
+    <xacro:property name="towerLength" value=".5"/>
+    <xacro:property name="towerWidth" value=".5"/>
+    <xacro:property name="towerMass" value="50"/>
 
-  	<xacro:property name="wheelWidth" value="0.05"/>
-  	<xacro:property name="wheelRadius" value="0.1"/>
+  	<xacro:property name="wheelWidth" value="0.1"/>
+  	<xacro:property name="wheelRadius" value="0.2"/>
   	<xacro:property name="wheelPos" value="0.2"/>
   	<xacro:property name="wheelMass" value="5"/>
 
   	<xacro:property name="cameraSize" value="0.05"/>
   	<xacro:property name="cameraMass" value="0.1"/>
 
-    <link name="footprint" />
+    <link name="base_link" />
 
     <joint name="base_joint" type="fixed">
-      <parent link="footprint"/>
+      <parent link="base_link"/>
       <child link="chassis"/>
     </joint>
 
@@ -42,7 +44,7 @@
   	     <geometry>
            <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
   	     </geometry>
-  	       <material name="orange"/>
+  	       <material name="grey"/>
   	   </visual>
 
   	   <inertial>
@@ -50,36 +52,40 @@
   	     <mass value="${chassisMass}"/>
   	     <box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}" z="${chassisHeight}"/>
   	   </inertial>
-  	</link>
+    </link>
 
-    <joint name="fixed" type="fixed">
-      <parent link="chassis"/>
-      <child link="caster_wheel"/>
+    <joint name = "tower" type = "fixed">
+      <parent link = "chassis"/>
+      <child link = "controlTower"/>
+      <origin xyz="0 0 ${wheelRadius + chassisHeight / 2}"/>
     </joint>
 
-    <link name="caster_wheel">
+    <!-- ${wheelRadius + (chassisHeight + towerHeight) / 2} -->
+    <link name = "controlTower">
       <collision>
-        <origin xyz="${casterRadius-chassisLength/2} 0 ${casterRadius-chassisHeight+wheelRadius}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${towerHeight / 2}" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${casterRadius}"/>
+           <box size="${towerLength} ${towerWidth} ${towerHeight}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="${casterRadius-chassisLength/2} 0 ${casterRadius-chassisHeight+wheelRadius}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${towerHeight / 2}" rpy="0 0 0"/>
         <geometry>
-          <sphere radius="${casterRadius}"/>
+           <box size="${towerLength} ${towerWidth} ${towerHeight}"/>
         </geometry>
-        <material name="red"/>
+        <material name="black"/>
       </visual>
 
       <inertial>
-        <origin xyz="${casterRadius-chassisLength/2} 0 ${casterRadius-chassisHeight+wheelRadius}" rpy="0 0 0"/>
-        <mass value="${casterMass}"/>
-        <sphere_inertia m="${casterMass}" r="${casterRadius}"/>
+        <origin xyz="0 0 ${wheelRadius + chassisHeight + towerHeight / 2}" rpy="0 0 0"/>
+        <mass value="${towerMass}"/>
+        <box_inertia m="${towerMass}" x="${towerLength}" y="${towerWidth}" z="${towerHeight}"/>
       </inertial>
-    </link>
+   </link>
 
-    <wheel lr="left" tY="1"/>
-    <wheel lr="right" tY="-1"/>
+   <xacro:wheel lr="left" fb="front" tY="1" tX = "1"/>
+   <xacro:wheel lr="right" fb="front" tY="-1" tX = "1"/>
+   <xacro:wheel lr="left" fb = "back" tY="1" tX = "-1"/>
+   <xacro:wheel lr="right" fb = "back" tY="-1" tX = "-1"/>
   </robot>

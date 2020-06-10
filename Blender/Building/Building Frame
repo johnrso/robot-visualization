@@ -1,0 +1,25 @@
+import bpy
+
+
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete()
+
+
+## Defined Functions
+def Create_Cube(x,y,z):
+    bpy.ops.mesh.primitive_cube_add(location=(x,y,z))
+
+def Resize(x,y,z):
+    bpy.ops.transform.resize(value=(x,y,z), orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, False, False), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
+
+def Translate(x,y,z):
+    bpy.ops.transform.translate(value=(x, y, z), orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, False, False), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
+
+## Defining Structures
+def Building(x,y,z):
+    Create_Cube(0,0,0)
+    Resize(x,y,z)
+    Translate(0,0,z)
+
+## Building Structures
+Building(90,120,20)

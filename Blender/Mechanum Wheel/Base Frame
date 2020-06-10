@@ -1,0 +1,55 @@
+import bpy
+
+#bpy.ops.object.select_all(action='SELECT')
+#bpy.ops.object.delete()
+
+## Setting Variables, change these to change the wheel
+# Number Objects
+n=4
+# Plane Location
+(xp,yp,zp) = (0,0,10)
+# Extrude Value (Thickness)
+(xe,ye,ze) = (0,0,1)
+# Resize
+(xs,ys,zs) = (5,5,1)
+# Rotation @ 45*
+r=157.865
+
+## Defined Functions
+def Create_Plane(x,y,z):
+    bpy.ops.mesh.primitive_plane_add(location=(x,y,z))
+
+def Resize(x,y,z):
+    bpy.ops.transform.resize(value=(x,y,z), orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, False, True), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
+
+def Rotate(x):
+    bpy.ops.transform.rotate(value=x, orient_axis='Z', orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', constraint_axis=(False, False, True), mirror=True, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False)
+
+def Extrude(x,y,z):
+    bpy.ops.mesh.extrude_region_move(MESH_OT_extrude_region={"use_normal_flip":False, "mirror":False}, TRANSFORM_OT_translate={"value":(x,y,z), "orient_type":'LOCAL', "orient_matrix":((1, 0, 0), (0, 1, 0), (0, 0, 1)), "orient_matrix_type":'LOCAL', "constraint_axis":(False, False, True), "mirror":False, "use_proportional_edit":False, "proportional_edit_falloff":'SMOOTH', "proportional_size":1, "use_proportional_connected":False, "use_proportional_projected":False, "snap":False, "snap_target":'CLOSEST', "snap_point":(0, 0, 0), "snap_align":False, "snap_normal":(0, 0, 0), "gpencil_strokes":False, "cursor_transform":False, "texture_space":False, "remove_on_cancel":False, "release_confirm":False, "use_accurate":False})
+
+def Subdivide(n):
+    bpy.ops.mesh.subdivide(number_cuts=n)
+
+## Creating a cube at the origin and resizing it
+def cube1():
+    Create_Plane(xp,yp,zp)
+# Enter edit mode
+    bpy.ops.object.editmode_toggle()
+    Subdivide(n*2)
+    Extrude(xe,ye,ze)
+# Exit edit mode
+    bpy.ops.object.editmode_toggle()
+    Resize(xs,ys,zs)
+
+# Using for to only change number of desired objects to make all segments
+for x in range(n):
+    cube1()
+    Rotate(r*(2/n)*x)
+
+## Joining all objects to create a single object
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.join()
+
+# Extrude First Region
+# bpy.ops.mesh.extrude_region_move(MESH_OT_extrude_region={"use_normal_flip":False, "mirror":False}, TRANSFORM_OT_translate={"value":(-1.1758, -1.16295, 0), "orient_type":'LOCAL', "orient_matrix":((-0.382726, -0.923862, 0), (0.923862, -0.382726, 0), (0, 0, 1)), "orient_matrix_type":'LOCAL', "constraint_axis":(True, True, False), "mirror":False, "use_proportional_edit":False, "proportional_edit_falloff":'SMOOTH', "proportional_size":1, "use_proportional_connected":False, "use_proportional_projected":False, "snap":False, "snap_target":'CLOSEST', "snap_point":(0, 0, 0), "snap_align":False, "snap_normal":(0, 0, 0), "gpencil_strokes":False, "cursor_transform":False, "texture_space":False, "remove_on_cancel":False, "release_confirm":False, "use_accurate":False})

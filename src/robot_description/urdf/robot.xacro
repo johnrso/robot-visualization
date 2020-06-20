@@ -88,4 +88,33 @@
    <xacro:wheel lr="right" fb="front" tY="-1" tX = "1"/>
    <xacro:wheel lr="left" fb = "back" tY="1" tX = "-1"/>
    <xacro:wheel lr="right" fb = "back" tY="-1" tX = "-1"/>
-  </robot>
+
+   <joint name = "lidar" type = "fixed">
+    <parent link = "controlTower"/>
+    <child link = "hokuyo_link"/>
+    <origin xyz="0 0 ${towerHeight}"/>
+  </joint>
+
+  <link name="hokuyo_link">
+    <collision>
+      <origin xyz="0 0 .05" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 .05" rpy="0 0 0"/>
+      <geometry>
+        <!-- <mesh filename="package://rrbot_description/meshes/hokuyo.dae"/> -->
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+</robot>

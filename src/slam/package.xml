@@ -54,6 +54,7 @@
   <exec_depend>rtabmap_ros</exec_depend>
   <exec_depend>imu_filter_madgwick</exec_depend>
   <exec_depend>robot_localization</exec_depend>
+  <exec_depend>openni_launch</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

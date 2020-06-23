@@ -11,7 +11,7 @@
         <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>nav_msgs/Odometry</odometryTopic>
         <odometryFrame>odom</odometryFrame>
-        <odometryRate>50.0</odometryRate>
+        <odometryRate>20.0</odometryRate>
         <robotBaseFrame>base_link</robotBaseFrame>
         <publishTF>true</publishTF>
       </plugin>
@@ -32,24 +32,24 @@
             <far>3</far>
           </clip>
         </camera>
-        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
           <baseline>0.2</baseline>
           <alwaysOn>true</alwaysOn>
-          <updateRate>1.0</updateRate>
+          <updateRate>0.0</updateRate>
           <cameraName>camera_ir</cameraName>
           <imageTopicName>/camera/color/image_raw</imageTopicName>
           <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
           <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
-          <depthImageInfoTopicName>/camera/depth/depth_info</depthImageInfoTopicName>
+          <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
           <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
           <frameName>camera_link</frameName>
           <pointCloudCutoff>0.5</pointCloudCutoff>
           <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
-          <distortionK1>0.00000001</distortionK1>
-          <distortionK2>0.00000001</distortionK2>
-          <distortionK3>0.00000001</distortionK3>
-          <distortionT1>0.00000001</distortionT1>
-          <distortionT2>0.00000001</distortionT2>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
           <CxPrime>0</CxPrime>
           <Cx>0</Cx>
           <Cy>0</Cy>
@@ -59,11 +59,11 @@
       </sensor>
     </gazebo>
 
-    <gazebo reference="hokuyo_link">
+    <gazebo reference="lidar_link">
       <sensor type="ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
-        <update_rate>40</update_rate>
+        <update_rate>20</update_rate>
         <ray>
           <scan>
             <horizontal>
@@ -86,7 +86,7 @@
         </ray>
         <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
           <topicName>sensor_msgs/LaserScan</topicName>
-          <frameName>hokuyo_link</frameName>
+          <frameName>lidar_link</frameName>
         </plugin>
       </sensor>
     </gazebo>

@@ -1,7 +1,7 @@
 prefix=/home/john/robot-visualization/install
 
-Name: robot_control
-Description: Description of robot_control
+Name: robot_nav
+Description: Description of robot_nav
 Version: 0.0.0
 Cflags: 
 Libs: -L${prefix}/lib 

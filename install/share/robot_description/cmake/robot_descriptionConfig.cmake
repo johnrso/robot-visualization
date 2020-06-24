@@ -67,14 +67,14 @@ set(robot_description_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(robot_description_SOURCE_PREFIX /home/john/robot_sanitization/src/robot_description)
-  set(robot_description_DEVEL_PREFIX /home/john/robot_sanitization/devel)
+  set(robot_description_SOURCE_PREFIX /home/john/robot-visualization/src/robot_description)
+  set(robot_description_DEVEL_PREFIX /home/john/robot-visualization/devel)
   set(robot_description_INSTALL_PREFIX "")
   set(robot_description_PREFIX ${robot_description_DEVEL_PREFIX})
 else()
   set(robot_description_SOURCE_PREFIX "")
   set(robot_description_DEVEL_PREFIX "")
-  set(robot_description_INSTALL_PREFIX /home/john/robot_sanitization/install)
+  set(robot_description_INSTALL_PREFIX /home/john/robot-visualization/install)
   set(robot_description_PREFIX ${robot_description_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/john/robot_sanitization/install/lib;/opt/ros/melodic/lib)
+    foreach(path /home/john/robot-visualization/install/lib;/home/john/robot-visualization/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

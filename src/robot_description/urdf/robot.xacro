@@ -91,63 +91,72 @@
    <xacro:wheel lr="right" fb = "back" tY="-1" tX = "-1"/>
 
    <joint name = "camera" type = "fixed">
-    <parent link = "controlTower"/>
-    <child link = "camera_link"/>
-    <origin xyz="${towerLength / 2 + cameraSize / 2} 0 ${towerHeight * 3 / 4}"
-             />
-  </joint>
+     <parent link = "controlTower"/>
+     <child link = "camera_link"/>
+     <origin xyz="${towerLength / 2 + cameraSize / 2} 0 ${towerHeight * 3 / 4}"/>
+   </joint>
 
-  <link name="camera_link">
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
-      </geometry>
-    </collision>
+   <link name="camera_link">
+     <collision>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <geometry>
+         <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+       </geometry>
+     </collision>
 
-    <visual>
-      <origin xyz= "0 0 0" />
-      <geometry>
-        <!-- <mesh filename="package://rrbot_description/meshes/hokuyo.dae"/> -->
-        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
-      </geometry>
-    </visual>
+     <visual>
+       <origin xyz= "0 0 0" />
+       <geometry>
+         <!-- <mesh filename="package://rrbot_description/meshes/hokuyo.dae"/> -->
+         <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+       </geometry>
+     </visual>
 
-    <inertial>
-      <mass value="${cameraMass}" />
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <xacro:box_inertia m = "${cameraMass}" x = "${cameraSize}"
-                         y = "${cameraSize}" z = "${cameraSize}"/>
-    </inertial>
-  </link>
+     <inertial>
+       <mass value="${cameraMass}" />
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <xacro:box_inertia m = "${cameraMass}" x = "${cameraSize}"
+         y = "${cameraSize}" z = "${cameraSize}"/>
+     </inertial>
+   </link>
 
-  <joint name = "lidar" type = "fixed">
-   <parent link = "controlTower"/>
-   <child link = "lidar_link"/>
-   <origin xyz="${towerLength / 2 + cameraSize / 2} 0 ${towerHeight / 4}"/>
-  </joint>
+   <joint name="camera_optical_joint" type="fixed">
+   <origin xyz="0 0 0" rpy="${PI/2} ${PI} ${PI/2}"/>
+   <parent link="camera_link"/>
+   <child link="camera_link_optical"/>
+   </joint>
 
-  <link name="lidar_link">
-   <collision>
-     <origin xyz="0 0 0" rpy="0 0 0"/>
-     <geometry>
-       <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
-     </geometry>
-   </collision>
+   <link name="camera_link_optical">
+   </link>
 
-   <visual>
-     <origin xyz= "0 0 0" />
-     <geometry>
-       <!-- <mesh filename="package://rrbot_description/meshes/hokuyo.dae"/> -->
-       <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
-     </geometry>
-   </visual>
 
-   <inertial>
-     <mass value="${cameraMass}" />
-     <origin xyz="0 0 0" rpy="0 0 0"/>
-     <xacro:box_inertia m = "${cameraMass}" x = "${cameraSize}"
-                        y = "${cameraSize}" z = "${cameraSize}"/>
-   </inertial>
- </link>
+   <joint name = "lidar" type = "fixed">
+       <parent link = "controlTower"/>
+       <child link = "lidar_link"/>
+       <origin xyz="${towerLength / 2 + cameraSize / 2} 0 ${towerHeight / 4}"/>
+   </joint>
+
+   <link name="lidar_link">
+     <collision>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <geometry>
+         <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+       </geometry>
+     </collision>
+
+     <visual>
+       <origin xyz= "0 0 0" />
+       <geometry>
+         <!-- <mesh filename="package://rrbot_description/meshes/hokuyo.dae"/> -->
+         <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+       </geometry>
+     </visual>
+
+     <inertial>
+       <mass value="${cameraMass}" />
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <xacro:box_inertia m = "${cameraMass}" x = "${cameraSize}"
+         y = "${cameraSize}" z = "${cameraSize}"/>
+     </inertial>
+   </link>
 </robot>

@@ -7,18 +7,18 @@
     <xacro:property name="PI" value="3.1415926535897931"/>
 
   	<xacro:property name="chassisHeight" value="0.1"/>
-  	<xacro:property name="chassisLength" value="1.2"/>
-  	<xacro:property name="chassisWidth" value="0.8"/>
+  	<xacro:property name="chassisLength" value=".6"/>
+  	<xacro:property name="chassisWidth" value="0.4"/>
   	<xacro:property name="chassisMass" value="200"/>
 
     <xacro:property name="towerHeight" value="1"/>
-    <xacro:property name="towerLength" value=".5"/>
-    <xacro:property name="towerWidth" value=".5"/>
+    <xacro:property name="towerLength" value=".3"/>
+    <xacro:property name="towerWidth" value=".3"/>
     <xacro:property name="towerMass" value="100"/>
 
-  	<xacro:property name="wheelWidth" value="0.1"/>
-  	<xacro:property name="wheelRadius" value="0.2"/>
-  	<xacro:property name="wheelPos" value="0.2"/>
+  	<xacro:property name="wheelWidth" value="0.05"/>
+  	<xacro:property name="wheelRadius" value="0.1"/>
+  	<xacro:property name="wheelPos" value="0.1"/>
   	<xacro:property name="wheelMass" value="50"/>
 
   	<xacro:property name="cameraSize" value="0.1"/>
@@ -127,6 +127,12 @@
    </joint>
 
    <link name="camera_link_optical">
+     <collision>
+       <origin xyz="0 0 0" rpy="0 0 0"/>
+       <geometry>
+         <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+       </geometry>
+     </collision>
    </link>
 
 

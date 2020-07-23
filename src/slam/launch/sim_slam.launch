@@ -3,32 +3,28 @@
   <!-- <include file = "$(find openni_launch)/launch/openni.launch">
     <arg name = "depth_registration" value = "true"/>
   </include> -->
-  <!-- <node pkg="imu_filter_madgwick" type="imu_filter_node" name="ImuFilter">
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="ImuFilter">
       <param name="use_mag" type="bool" value="false" />
       <param name="_publish_tf" type="bool" value="false" />
       <param name="_world_frame" type="string" value="enu" />
-      <remap from="/imu/data_raw" to="/camera/imu"/>
-  </node> -->
+  </node>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
       <arg name="args" value="--delete_db_on_start"/>
-      <arg name="scan_cloud_topic" value = "camera/depth/points"/>
-      <arg name = "odom_topic" value = "nav_msgs/Odometry"/>
+      <arg name="scan_cloud_topic" value = "/camera/depth/points"/>
       <arg name="frame_id" value="base_link"/>
       <arg name="odom_frame_id" value = "odom"/>
       <arg name="rgb_topic" value="/camera/color/image_raw"/>
       <arg name="depth_topic" value="/camera/depth/image_raw"/>
       <arg name="camera_info_topic" value="/camera/color/camera_info"/>
       <arg name="depth_camera_info_topic" value="/camera/depth/camera_info"/>
-      <!-- <arg name="rtabmapviz" value="false"/>
-      <arg name="rviz_cfg" value="$(find slam)/launch/config/rgbd.rviz" />
-      <arg name="rviz" value="true"/> -->
   </include>
 
-  <!-- <include file="$(find robot_localization)/launch/ukf_template.launch"/>
-  <param name="/ukf_se/frequency" value="300"/>
+  <include file="$(find robot_localization)/launch/ukf_template.launch"/>
+  <param name="/ukf_se/frequency" value="60"/>
   <param name="/ukf_se/base_link_frame" value="base_link"/>
-  <param name="/ukf_se/odom0" value="/odom"/>
+
+  <param name="/ukf_se/odom0" value="rtabmap/odom"/>
   <rosparam param="/ukf_se/odom0_config">[true,true,true,
                                           true,true,true,
                                           true,true,true,
@@ -39,6 +35,17 @@
   <param name="/ukf_se/odom0_pose_rejection_threshold" value="10000000"/>
   <param name="/ukf_se/odom0_twist_rejection_threshold" value="10000000"/>
 
+  <param name="/ukf_se/odom1" value="/b/odom"/>
+  <rosparam param="/ukf_se/odom1_config">[true,true,true,
+                                          true,true,true,
+                                          true,true,true,
+                                          true,true,true,
+                                          true,true,true]
+  </rosparam>
+  <param name="/ukf_se/odom1_relative" value="true"/>
+  <param name="/ukf_se/odom1_pose_rejection_threshold" value="10000000"/>
+  <param name="/ukf_se/odom1_twist_rejection_threshold" value="10000000"/>
+
   <param name="/ukf_se/imu0" value="/imu/data"/>
   <rosparam param="/ukf_se/imu0_config">[false, false, false,
                                          true,  true,  true,
@@ -48,5 +55,5 @@
   </rosparam>
   <param name="/ukf_se/imu0_differential" value="true"/>
   <param name="/ukf_se/imu0_relative" value="false"/>
-  <param name="/ukf_se/use_control" value="false"/> --> -->
+  <param name="/ukf_se/use_control" value="false"/>
 </launch>
